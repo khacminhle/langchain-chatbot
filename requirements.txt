@@ -4,3 +4,4 @@ djangorestframework
 langchain-openai
 python-dotenv
 drf-yasg
+streamlit
