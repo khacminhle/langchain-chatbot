@@ -1,12 +1,35 @@
+/*.st-key-clear_chat, .st-key-new_chat{*/
+/*    position: fixed;*/
+/*    top: 10%;*/
+/*    z-index: 1000;*/
+/*    display: flex;*/
+
+/*}*/
+
+
+
+/*.st-key-clear_chat button {*/
+/*    right: 2%;*/
+/*}*/
+
+/*.st-key-new_chat button {*/
+/*    right: 5%;*/
+/*}*/
+
 .st-key-clear_chat button {
     position: fixed;
     top: 10%;
-    z-index: 1000
+    right: 2%;
+    z-index: 1000;
 }
 
-.st-key-clear_chat button {
-    right: 2%;
+.st-key-new_chat button {
+    position: fixed;
+    top: 10%;
+    right: calc(5% + 100px); /* Adjust this value to the width of your button */
+    z-index: 1000;
 }
+
 
 .st-key-use_web_toggle  {
     position: fixed;
@@ -14,19 +37,3 @@
     z-index: 1000
 }
 
-/*[data-testid="stSidebar"] {*/
-/*    min-width: 85px;*/
-/*    max-width: 85px;*/
-/*    transition: all 0.3s;*/
-/*    padding-left: -0.5rem important!;*/
-/*    padding-right: -2.5rem;*/
-/*}*/
-
-/*[data-testid="stSidebar"]:hover {*/
-/*    min-width: 300px;*/
-/*    max-width: 300px;*/
-/*}*/
-
-/*.sidebar-content{*/
-/*    width: 100%;*/
-/*}*/

@@ -5,3 +5,4 @@ langchain-openai
 python-dotenv
 drf-yasg
 streamlit
+langchain-community

@@ -23,6 +23,10 @@ def local_css(filename: str) -> None:
 def clear_chat():
     st.session_state["messages"] = []
 
+def new_chat():
+    del st.session_state["session_id"]
+    st.session_state["messages"] = []
+
 local_css("./assets/css/styles.css")
 
 #------------------ Streamlit Start Here --------------------#
@@ -31,13 +35,13 @@ local_css("./assets/css/styles.css")
 if "session_id" not in st.session_state:
     st.session_state["session_id"] = requests.get(url=f"{API_ENDPOINT}/get_session_id").json()["session_id"]
 
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {
-         "role": "assistant",
-         "content": "I'm your basic chatbot. Ask me anything!"
-        }
-    ]
+    if "messages" not in st.session_state:
+        st.session_state["messages"] = [
+            {
+             "role": "assistant",
+             "content": "I'm your basic chatbot. Ask me anything!"
+            }
+        ]
 
 
 with st.sidebar:
@@ -48,6 +52,7 @@ with st.sidebar:
 prompt = st.chat_input("Type your question here")
 
 st.button("Clear Chat", key="clear_chat", on_click=clear_chat, icon=":material/cancel:")
+st.button("New Chat", key="new_chat", on_click=new_chat, icon=":material/add_circle:")
 
 for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
@@ -65,7 +70,9 @@ if prompt:
         api_response = requests.post(
             url=f"{API_ENDPOINT}/chatbot_response/",
             json={
-                "prompt": prompt}
+                "prompt": prompt,
+                "session_id": st.session_state["session_id"]
+            }
         )
 
     # Refresh the conversation display
