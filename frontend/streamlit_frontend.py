@@ -28,6 +28,9 @@ local_css("./assets/css/styles.css")
 #------------------ Streamlit Start Here --------------------#
 
 
+if "session_id" not in st.session_state:
+    st.session_state["session_id"] = requests.get(url=f"{API_ENDPOINT}/get_session_id").json()["session_id"]
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
         {
@@ -39,6 +42,7 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
     st.title("Your Session ID:")
+    st.write(st.session_state["session_id"])
 
 # Handle new message
 prompt = st.chat_input("Type your question here")

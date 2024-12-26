@@ -23,5 +23,11 @@ class AIChatBotView(APIView):
 
             return Response({"response": response})
 
+class SessionID(APIView):
+    def get(self, request):
+        session_id = ai_chatbot.get_session_id()
+        print(session_id)
+        return Response({"session_id": session_id})
+
 
 

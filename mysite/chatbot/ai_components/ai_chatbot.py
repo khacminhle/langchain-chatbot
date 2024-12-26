@@ -1,3 +1,5 @@
+import uuid
+
 from .llm_models import get_openai_model
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -11,6 +13,9 @@ class AIChatBot:
         Answer the question below to the best of your knowledge.
         {question}
         """
+    @staticmethod
+    def get_session_id():
+        return str(uuid.uuid4())
 
     def get_llm_response(self, prompt):
 
@@ -18,5 +23,7 @@ class AIChatBot:
         chain = prompt_template | self.llm
         response = chain.invoke({"question": prompt})
         return response.content
+
+
 
 
