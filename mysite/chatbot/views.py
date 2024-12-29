@@ -20,7 +20,8 @@ class AIChatBotView(APIView):
         if serializer.is_valid():
             prompt = serializer.data['prompt']
             session_id = serializer.data['session_id']
-            response = ai_chatbot.get_llm_response(prompt, session_id)
+            agent = serializer.data['agent']
+            response = ai_chatbot.get_llm_response(prompt, session_id, agent)
 
             return Response({"response": response})
 

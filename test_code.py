@@ -8,7 +8,7 @@ print(session_id)
 
 while True:
     prompt = input("> ")
-    response = chatbot.get_llm_response(prompt, session_id)
+    response = chatbot.get_llm_response(prompt, session_id, agent="search_engine_agent")
     print(response)
 
 

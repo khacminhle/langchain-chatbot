@@ -27,6 +27,10 @@ def new_chat():
     del st.session_state["session_id"]
     st.session_state["messages"] = []
 
+def activate_search_agent():
+    st.session_state["agent"] = "search_engine_agent"
+
+
 local_css("./assets/css/styles.css")
 
 #------------------ Streamlit Start Here --------------------#
@@ -39,9 +43,12 @@ if "session_id" not in st.session_state:
         st.session_state["messages"] = [
             {
              "role": "assistant",
-             "content": "I'm your basic chatbot. Ask me anything!"
+             "content": "I'm your personal assistant."
             }
         ]
+
+    if "agent" not in st.session_state:
+        st.session_state["agent"] = "normal_agent"
 
 
 with st.sidebar:
@@ -53,6 +60,14 @@ prompt = st.chat_input("Type your question here")
 
 st.button("Clear Chat", key="clear_chat", on_click=clear_chat, icon=":material/cancel:")
 st.button("New Chat", key="new_chat", on_click=new_chat, icon=":material/add_circle:")
+
+
+# Toggle to activate search agent
+if st.toggle("Include web search", key="include_websearch"):
+    st.session_state["agent"] = "search_engine_agent"
+else:
+    st.session_state["agent"] = "normal_agent"
+
 
 for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
@@ -71,7 +86,8 @@ if prompt:
             url=f"{API_ENDPOINT}/chatbot_response/",
             json={
                 "prompt": prompt,
-                "session_id": st.session_state["session_id"]
+                "session_id": st.session_state["session_id"],
+                "agent": st.session_state["agent"],
             }
         )
 
